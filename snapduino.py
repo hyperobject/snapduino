@@ -17,8 +17,12 @@ pin10=a.get_pin('d:10:p')
 pin9=a.get_pin('d:9:p')
 pin6=a.get_pin('d:6:p')
 pin5=a.get_pin('d:5:p')
-pin3=a.get_pin('d:3:p')
-pwms = {11: pin11, 10: pin10, 9: pin9, 6: pin6, 5: pin6, 3: pin3}
+pin3=a.get_pin('d:3:i')
+pin2=a.get_pin('d:2:i')
+pin3.enable_reporting()
+pin2.enable_reporting()
+pwms = {11: pin11, 10: pin10, 9: pin9, 6: pin6, 5: pin6}
+d_in = {2: pin2, 3: pin3}
 
 @handler.route('/digitalwrite')
 def digitalwrite(setting, pin):
@@ -30,7 +34,7 @@ def digitalpwm(setting, pin):
 
 @handler.route('/digitalread')
 def digitalread(pin):
-	a.digital[pin].read()
+	return not d_in.get(pin).read()
 
 @handler.route('/analogread')
 def analogwrite(pin):
