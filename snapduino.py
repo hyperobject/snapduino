@@ -1,9 +1,12 @@
 from pyfirmata import Arduino, util
 import snapext
 import serial.tools.list_ports
-
+import pip
+print "Installing dependencies..."
+pip.main(['install', 'pyfirmata'])
 for i in serial.tools.list_ports.comports():
 	if i[2][12:16] == '2341':
+		print "Detected an Arduino!"
 		a = Arduino(i[0])
 	else:
 		pass
